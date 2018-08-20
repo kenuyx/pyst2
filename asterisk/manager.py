@@ -68,7 +68,6 @@ import threading
 from six import PY3
 from six.moves import queue
 import re
-from types import *
 from time import sleep
 
 EOL = '\r\n'
@@ -120,7 +119,7 @@ class ManagerMsg(object):
                 # if header is ChanVariable it can have more that one value
                 # we store the variable in a dictionary parsed
                 if 'ChanVariable' in k:
-                    if not self.headers.has_key('ChanVariable'):
+                    if 'ChanVariable' not in self.headers:
                         self.headers['ChanVariable']={}
                     name, value = (x.strip() for x in v.split('=',1))
                     self.headers['ChanVariable'][name]=value
@@ -575,7 +574,7 @@ class Manager(object):
 
         return response
 
-    def originate(self, channel, exten, context='', priority='', timeout='', caller_id='', async=False, earlymedia='false', account='', variables={}):
+    def originate(self, channel, exten, context='', priority='', timeout='', caller_id='', sync=True, earlymedia='false', account='', variables={}):
         """Originate a call"""
 
         cdict = {'Action': 'Originate'}
@@ -589,7 +588,7 @@ class Manager(object):
             cdict['Timeout'] = timeout
         if caller_id:
             cdict['CallerID'] = caller_id
-        if async:
+        if not sync:
             cdict['Async'] = 'yes'
         if earlymedia:
             cdict['EarlyMedia'] = earlymedia

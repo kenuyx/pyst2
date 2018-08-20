@@ -69,7 +69,7 @@ def scanvars(reader, frame, locals):
     import tokenize
     import keyword
     vars, lasttoken, parent, prefix, value = [], None, None, '', __UNDEF__
-    for ttype, token, start, end, line in tokenize.generate_tokens(reader):
+    for ttype, token, _, _, _ in tokenize.generate_tokens(reader):
         if ttype == tokenize.NEWLINE:
             break
         if ttype == tokenize.NAME and token not in keyword.kwlist:

@@ -21,13 +21,13 @@ try:
 
         manager.logoff()
     except asterisk.manager.ManagerSocketException as e:
-        print "Error connecting to the manager: %s" % e.strerror
+        print(f"Error connecting to the manager: {e.strerror}")
         sys.exit(1)
     except asterisk.manager.ManagerAuthException as e:
-        print "Error logging in to the manager: %s" % e.strerror
+        print(f"Error logging in to the manager: {e.strerror}")
         sys.exit(1)
     except asterisk.manager.ManagerException as e:
-        print "Error: %s" % e.strerror
+        print(f"Error: {e.strerror}")
         sys.exit(1)
 
 finally:
